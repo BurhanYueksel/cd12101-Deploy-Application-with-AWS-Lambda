@@ -1,8 +1,18 @@
+import { deleteTodo } from '../dataLayer/todosAccess';
 
-export function handler(event) {
-  const todoId = event.pathParameters.todoId
+export async function handler(event) {
+  const { todoIds } = JSON.parse(event.body);
 
-  // TODO: Remove a TODO item by id
-  return undefined
+  await Promise.all(todoIds.map(todoId => deleteTodo(todoId)));
+
+  return {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
+    },
+    body: JSON.stringify({
+      message: 'TODOs deleted successfully'
+    })
+  };
 }
-
