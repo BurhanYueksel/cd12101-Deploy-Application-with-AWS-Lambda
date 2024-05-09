@@ -25,7 +25,7 @@ IXiOXbzJ6H8nmtF98mPOSpNuywG7rdaVOyIQSmczjRYx
 const logger = createLogger('auth')
 const jsonwebtoken = require('jsonwebtoken');
 
-const jwksUrl = 'https://test-endpoint.auth0.com/.well-known/jwks.json'
+const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 
 export async function handler(event) {
   try {
