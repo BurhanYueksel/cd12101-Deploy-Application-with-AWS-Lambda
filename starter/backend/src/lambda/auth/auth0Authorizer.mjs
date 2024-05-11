@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import jsonwebtoken from 'jsonwebtoken'
-import { createLogger } from '../../utils/logger.mjs'
 
 const certificate : string = '-----BEGIN CERTIFICATE-----
 MIIDHTCCAgWgAwIBAgIJCwZdTZyjQaOwMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNV
@@ -22,7 +21,6 @@ Jl/Zn4F97IW8UwnjmuILTQM6FbS+FmLcVkEVWdVWGauYLEtneI8xWDi7+Eu+ymAN
 IXiOXbzJ6H8nmtF98mPOSpNuywG7rdaVOyIQSmczjRYx
 -----END CERTIFICATE-----'
 
-const logger = createLogger('auth')
 const jsonwebtoken = require('jsonwebtoken');
 
 const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
@@ -30,7 +28,7 @@ const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 export async function handler(event) {
   try {
     const jwtToken = await verifyToken(event.authorizationToken)
-
+    console.log('User was authorized', jwtToken)
     return {
       principalId: user,
       policyDocument: {
@@ -45,7 +43,7 @@ export async function handler(event) {
       }
     }
   } catch (e) {
-    logger.error('User not authorized', { error: e.message })
+    console.log('User not authorized', error: e.message)
 
     return {
       principalId: 'user',
