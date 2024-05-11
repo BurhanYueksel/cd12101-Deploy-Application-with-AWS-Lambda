@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { getUserId } from '..auth/utils';
+import { getUserId } from '../auth/utils.mjs';
 import { createTodo } from '../dataLayer/todosAccess';
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
@@ -10,7 +10,8 @@ const todosTable = process.env.TODOS_TABLE
 
 export async function handler(event) {
   const { name, dueDate } = JSON.parse(event.body);
-  const userId = getUserId(event);
+  const authorization = event.headers.Authorization 
+  const userId = getUserId(authorization);
   const todoId = uuid();
 
   const newTodo = {

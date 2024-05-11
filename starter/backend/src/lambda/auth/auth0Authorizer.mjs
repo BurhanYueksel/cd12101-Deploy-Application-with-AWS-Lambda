@@ -32,7 +32,7 @@ export async function handler(event) {
     const jwtToken = await verifyToken(event.authorizationToken)
 
     return {
-      principalId: jwtToken.sub,
+      principalId: user,
       policyDocument: {
         Version: '2012-10-17',
         Statement: [
@@ -64,26 +64,15 @@ export async function handler(event) {
 }
 
 async function verifyToken(authHeader) {
-  const token = getToken(authHeader)
-  const jwt = jsonwebtoken.decode(token, { complete: true })
+  if(!authHeader) throw new Error('No authorization header')
+   
 
-    try {
-    const verifiedToken = jsonwebtoken.verify(token, certificate, options: {algorithms: ['RS256']});
-    return verifiedToken;
-  } catch (error) {
-    console.error('Token verification failed:', error);
-    return undefined;
-  }
-}
-
-function getToken(authHeader) {
-  if (!authHeader) throw new Error('No authentication header')
-
-  if (!authHeader.toLowerCase().startsWith('bearer '))
-    throw new Error('Invalid authentication header')
-
-  const split = authHeader.split(' ')
+  if(!authHeader.toLowerCase().startsWith('bearer))
+     throw new Error('Invalid authorization header')
+  
   const token = split[1]
+  const split = authHeader.split(' ')
+  
+  return jsonwebtoken.verify(token, certificate, options: {algorithms: ['RS256']})
 
-  return token
 }
