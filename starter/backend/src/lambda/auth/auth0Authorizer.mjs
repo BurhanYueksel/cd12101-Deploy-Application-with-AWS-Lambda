@@ -30,7 +30,7 @@ export async function handler(event) {
     const jwtToken = await verifyToken(event.authorizationToken)
     console.log('User was authorized', jwtToken)
     return {
-      principalId: user,
+      principalId: jwtToken.sub,
       policyDocument: {
         Version: '2012-10-17',
         Statement: [
