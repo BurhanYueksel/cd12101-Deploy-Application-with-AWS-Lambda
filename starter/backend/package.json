@@ -25,5 +25,8 @@
     "serverless-iam-roles-per-function": "^3.2.0",
     "uuid": "^9.0.1",
     "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "serverless-plugin-lambda-insights": "^2.0.0"
   }
 }

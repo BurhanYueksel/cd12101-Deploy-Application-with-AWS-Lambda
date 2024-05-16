@@ -2,8 +2,6 @@ import Axios from 'axios'
 import jsonwebtoken from 'jsonwebtoken'
 
 
-const jsonwebtoken = require('jsonwebtoken');
-
 const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 
 export async function handler(event) {
