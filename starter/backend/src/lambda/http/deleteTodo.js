@@ -1,9 +1,12 @@
-import { deleteTodo } from '../dataLayer/todosAccess';
+import { deleteTodo } from '../../dataLayer/todosAccess';
+import { getUserId } from "../auth/utils.mjs";
 
 export async function handler(event) {
   const { todoIds } = JSON.parse(event.body);
+  const authorization = event.headers.Authorization
+  const userId = getUserId(authorization);
 
-  await Promise.all(todoIds.map(todoId => deleteTodo(todoId)));
+  await Promise.all(todoIds.map(todoId => deleteTodo(todoId, userId)));
 
   return {
     statusCode: 200,

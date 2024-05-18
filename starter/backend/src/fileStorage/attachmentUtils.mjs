@@ -1,16 +1,16 @@
 import * as AWS from 'aws-sdk';
-import { createLogger } from '../utils/logger';
+import { createLogger } from '../auth/logger';
 
 const logger = createLogger('attachmentUtils');
 const s3 = new AWS.S3();
 const bucketName = process.env.ATTACHMENTS_S3_BUCKET;
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION;
 
-export function getAttachmentUrl(attachmentId: string): string {
+export function getAttachmentUrl(attachmentId) {
   return `https://${bucketName}.s3.amazonaws.com/${attachmentId}`;
 }
 
-export function getUploadUrl(attachmentId: string): string {
+export function getUploadUrl(attachmentId) {
   return s3.getSignedUrl('putObject', {
     Bucket: bucketName,
     Key: attachmentId,
@@ -18,7 +18,7 @@ export function getUploadUrl(attachmentId: string): string {
   });
 }
 
-export async function deleteAttachment(attachmentId: string) {
+export async function deleteAttachment(attachmentId) {
   try {
     await s3
       .deleteObject({

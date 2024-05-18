@@ -4,7 +4,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 const docClient = new AWS.DynamoDB.DocumentClient();
 const todosTable = process.env.TODOS_TABLE;
 
-export async function getAllTodos(userId: string) {
+export async function getAllTodos(userId) {
   const result = await docClient
     .query({
       TableName: todosTable,
@@ -27,7 +27,7 @@ export async function createTodo(todo) {
     .promise();
 }
 
-export async function updateTodo(todoId: string, userId: string, updatedTodo) {
+export async function updateTodo(todoId, userId, updatedTodo) {
   await docClient
     .update({
       TableName: todosTable,
@@ -48,7 +48,7 @@ export async function updateTodo(todoId: string, userId: string, updatedTodo) {
     .promise();
 }
 
-export async function deleteTodo(todoId: string, userId: string) {
+export async function deleteTodo(todoId, userId) {
   await docClient
     .delete({
       TableName: todosTable,

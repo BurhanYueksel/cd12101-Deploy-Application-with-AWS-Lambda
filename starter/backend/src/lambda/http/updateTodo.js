@@ -1,9 +1,21 @@
-import { updateTodo } from '../dataLayer/todosAccess';
+import { updateTodo } from '../../dataLayer/todosAccess';
+import {getUserId} from "../auth/utils.mjs";
 
 export async function handler(event) {
-  const { todoId, userId, done } = JSON.parse(event.body);
 
-  await updateTodo(todoId, userId, done);
+  const authorization = event.headers.Authorization
+  const userId = getUserId(authorization);
+  const { name, todoId, done } = JSON.parse(event.body);
+
+  // fetch the specific todo item using the todoId
+  // modify the required properties
+  // reuse the unchanged properties
+
+  await updateTodo(todoId, userId, {
+    name,
+    done,
+    dueDate: new Date().toISOString(),
+  });
 
   return {
     statusCode: 200,

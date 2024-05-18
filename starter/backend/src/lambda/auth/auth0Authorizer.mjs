@@ -1,6 +1,4 @@
 import Axios from 'axios'
-import jsonwebtoken from 'jsonwebtoken'
-
 
 const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 
@@ -22,7 +20,7 @@ export async function handler(event) {
       }
     }
   } catch (e) {
-    console.log('User not authorized', error: e.message)
+    console.log(`User not authorized', error: ${e.message}`);
 
     return {
       principalId: 'user',
@@ -40,22 +38,22 @@ export async function handler(event) {
   }
 }
 
-async function verifyToken(authHeader: string): Promise<JwtPayload> {
+async function verifyToken(authHeader) {
   const token = getToken(authHeader);
-  const jwt: Jwt = decode(token, {complete: true }) as Jwt;
+  const jwt = decode(token, {complete: true });
   const jwtKid = jwt.header.kid;
-  let cert: string | Buffer;
+  let cert;
 
   try{
     const jwks = await Axios.get(jwksUrl);
-    const signingKey = jwks.data.key.filter(k => k.kid === jwtKid)[0];  
-  
+    const signingKey = jwks.data.key.filter(k => k.kid === jwtKid)[0];
+
     if (!signingKey) {
       throw new Error(`Unable to find a signing key that matches ' ${jwtKid}'`);
     }
     const { x5c } = signingKey;
-    
-    cert = '-----BEGIN CERTIFICATE-----
+
+    cert = `-----BEGIN CERTIFICATE-----
 MIIDHTCCAgWgAwIBAgIJCwZdTZyjQaOwMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNV
 BAMTIWRldi1wc3p6YzZ1anFqb3JhN3hrLnVzLmF1dGgwLmNvbTAeFw0yNDA1MDYx
 MjIxMTBaFw0zODAxMTMxMjIxMTBaMCwxKjAoBgNVBAMTIWRldi1wc3p6YzZ1anFq
@@ -73,25 +71,26 @@ k7nRCRK0vJsmB50rE5uVa4rpJn3QwhOZVZ1Ra8hkIPNQbIH9UlGZS0Sv7Z4dN8Xn
 qaliGbAqRq/qavuvyA1QEb7ECZ0h0ndVewRmlc3uXjWzs75ozcRPFkjtJnarmn/6
 Jl/Zn4F97IW8UwnjmuILTQM6FbS+FmLcVkEVWdVWGauYLEtneI8xWDi7+Eu+ymAN
 IXiOXbzJ6H8nmtF98mPOSpNuywG7rdaVOyIQSmczjRYx
------END CERTIFICATE-----';
+-----END CERTIFICATE-----`;
   } catch(error) {
     console.log('Error while getting Certificate : ' , error);
   }
 
-   return verify(token, cert, { algorithms: ['RS256'] }) as JwtPayload;
+   return verify(token, cert, { algorithms: ['RS256'] });
 }
 
-function getToken(authHeader: string): string {
-   
+
+function getToken(authHeader) {
+
   if(!authHeader) throw new Error('No authentication header')
-   
+
 
   if(!authHeader.toLowerCase().startsWith('bearer '))
      throw new Error('Invalid authorization header')
-  
+
   const split = authHeader.split(' ')
   const token = split[1]
-  
+
   return token
 
 }

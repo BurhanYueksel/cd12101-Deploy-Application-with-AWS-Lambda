@@ -4,6 +4,9 @@
     "name": {
       "type": "string"
     },
+    "todoId": {
+      "type": "string"
+    },
     "dueDate": {
       "type": "string",
       "format": "date"
@@ -12,5 +15,5 @@
       "type": "boolean"
     }
   },
-  "required": ["name", "dueDate", "done"]
+  "required": ["name", "todoId", "dueDate", "done"]
 }

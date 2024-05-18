@@ -1,5 +1,7 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
+import { getAllTodos } from '../../dataLayer/todosAccess';
+import { getUserId } from "../auth/utils.mjs";
 
 const dynamoDbClient = DynamoDBDocument.from(new DynamoDB())
 
@@ -8,11 +10,10 @@ const todosTable = process.env.TODOS_TABLE
 export async function handler(event) {
   console.log('Processing event: ', event)
 
-  const scanCommand = {
-    TableName: todosTable
-  }
-  const result = await dynamoDbClient.scan(scanCommand)
-  const items = result.Items
+  const authorization = event.headers.Authorization
+  const userId = getUserId(authorization);
+
+  const items = await getAllTodos(userId);
 
   return {
     statusCode: 200,

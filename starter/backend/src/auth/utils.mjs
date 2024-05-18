@@ -8,3 +8,8 @@ export function getUserId(authorizationHeader) {
   return decodedJwt.sub;
 }
 
+//@TODO Implement something to actually parse the userId from the jwtToken
+export function parseUserId(jwtToken) {
+  return 'Burhan';
+}
+
