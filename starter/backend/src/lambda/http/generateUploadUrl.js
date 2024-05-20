@@ -1,4 +1,4 @@
-import { getUploadUrl } from '../fileStorage/attachmentUtils';
+import { getUploadUrl } from '../../fileStorage/attachmentUtils';
 
 export async function handler(event, context) {
   const attachmentId = event.pathParameters.attachmentId;

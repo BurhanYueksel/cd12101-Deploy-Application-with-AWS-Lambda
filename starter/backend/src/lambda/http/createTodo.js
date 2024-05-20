@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { getUserId } from '../auth/utils.mjs';
-import { createTodo } from '../../dataLayer/todosAccess';
+import { createTodo } from '../../dataLayer/todosAccess.mjs';
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
 

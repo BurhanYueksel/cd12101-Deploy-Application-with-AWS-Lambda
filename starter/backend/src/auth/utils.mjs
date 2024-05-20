@@ -10,6 +10,7 @@ export function getUserId(authorizationHeader) {
 
 //@TODO Implement something to actually parse the userId from the jwtToken
 export function parseUserId(jwtToken) {
-  return 'Burhan';
+  const decodedJwt = jsonwebtoken.decode(jwtToken)
+  return decodedJwt.sub;
 }
 
