@@ -1,6 +1,6 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
-import { getAllTodos } from '../../dataLayer/todosAccess';
+import { getAllTodos } from '../../dataLayer/todosAccess.mjs';
 import { getUserId } from "../auth/utils.mjs";
 
 const dynamoDbClient = DynamoDBDocument.from(new DynamoDB())

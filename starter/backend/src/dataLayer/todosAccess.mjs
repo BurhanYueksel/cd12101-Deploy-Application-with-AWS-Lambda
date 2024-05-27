@@ -1,7 +1,7 @@
 import * as AWS from 'aws-sdk';
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+//import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
-const docClient = new AWS.DynamoDB.DocumentClient();
+//const docClient = new AWS.DynamoDB.DocumentClient();
 const todosTable = process.env.TODOS_TABLE;
 
 export async function getAllTodos(userId) {

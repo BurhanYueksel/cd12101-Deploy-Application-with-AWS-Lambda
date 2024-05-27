@@ -1,5 +1,5 @@
-import { getUserId } from '../auth/utils';
-import { createTodo, getTodoById, getTodosByUserId, updateTodo, deleteTodo } from '../dataLayer/todosAccess';
+import { getUserId } from '../auth/utils.mjs';
+import { createTodo, updateTodo, deleteTodo } from '../dataLayer/todosAccess.mjs';
 
 export async function createTodoItem(todoData, event) {
   const userId = getUserId(event);

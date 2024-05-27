@@ -1,4 +1,4 @@
-import { deleteTodo } from '../../dataLayer/todosAccess';
+import { deleteTodo } from '../../dataLayer/todosAccess.mjs';
 import { getUserId } from "../auth/utils.mjs";
 
 export async function handler(event) {
