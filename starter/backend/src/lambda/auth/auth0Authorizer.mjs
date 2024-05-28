@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-const jwksUrl = 'dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
+const jwksUrl = 'https://dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 
 export async function handler(event) {
   try {
@@ -46,7 +46,7 @@ async function verifyToken(authHeader) {
 
   try{
     const jwks = await Axios.get(jwksUrl);
-    const signingKey = jwks.data.key.filter(k => k.kid === jwtKid)[0];
+    const signingKey = jwks.data.keys.filter(k => k.kid === jwtKid)[0];
 
     if (!signingKey) {
       throw new Error(`Unable to find a signing key that matches ' ${jwtKid}'`);
