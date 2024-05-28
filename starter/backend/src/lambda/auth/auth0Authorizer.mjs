@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import { verify, decode } from 'jsonwebtoken';
 
 const jwksUrl = 'https://dev-pszzc6ujqjora7xk.us.auth0.com/.well-known/jwks.json'
 
